@@ -64,11 +64,14 @@ function App() {
       <SearchBar fetchJobsCustom={fetchJobsCustom} />
 
       {customSearch && (
-        <button onClick={fetchJobs} className="flex pl-[1250px] mb-2">
-          <p className="bg-blue-500 px-10 py-2 rounded-md text-white">
+        <div className="w-full flex justify-center md:justify-end mb-2 px-2 sm:px-8">
+          <button
+            onClick={fetchJobs}
+            className="bg-blue-500 px-8 py-2 rounded-md text-white font-semibold shadow hover:bg-blue-600 transition-all"
+          >
             Clear Filter
-          </p>
-        </button>
+          </button>
+        </div>
       )}
 
       {jobs.map((job) => (
