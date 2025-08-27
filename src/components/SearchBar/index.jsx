@@ -1,11 +1,41 @@
-import React from 'react'
+import React, { useState } from "react";
 
+function SearchBar(props) {
+  const [jobCriteria, setJobCriteria] = useState({
+    title: "",
+    location: "",
+    experience: "",
+    type: "",
+  });
 
-function SearchBar() {
+  const handleChange = (e) => {
+    setJobCriteria((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  // console.log(jobCriteria)
+
+  const search = async () => {
+    await props.fetchJobsCustom(jobCriteria);
+    // reset fields back to default
+    setJobCriteria({
+      title: "",
+      location: "",
+      experience: "",
+      type: "",
+    });
+  };
+
   return (
-    <div className='flex gap-4 my-10 justify-center px-10'>
+    <div className="flex flex-col md:flex-row flex-wrap gap-4 my-8 justify-center items-center w-full px-2 sm:px-6">
       {/* Job Role */}
-      <select className="w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md">
+      <select
+        onChange={handleChange}
+        name="title"
+        value={jobCriteria.title}
+        className="w-56 sm:w-64 py-3 pl-4 bg-zinc-100 font-semibold rounded-lg border border-blue-200 shadow-sm focus:ring-2 focus:ring-blue-400 transition"
+      >
         <option value="" disabled hidden selected>
           Job Role
         </option>
@@ -17,7 +47,12 @@ function SearchBar() {
       </select>
 
       {/* Job Type */}
-      <select className="w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md">
+      <select
+        onChange={handleChange}
+        name="type"
+        value={jobCriteria.type}
+        className="w-56 sm:w-64 py-3 pl-4 bg-zinc-100 font-semibold rounded-lg border border-blue-200 shadow-sm focus:ring-2 focus:ring-blue-400 transition"
+      >
         <option value="" disabled hidden selected>
           Job Type
         </option>
@@ -27,7 +62,12 @@ function SearchBar() {
       </select>
 
       {/* Location */}
-      <select className="w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md">
+      <select
+        onChange={handleChange}
+        name="location"
+        value={jobCriteria.location}
+        className="w-56 sm:w-64 py-3 pl-4 bg-zinc-100 font-semibold rounded-lg border border-blue-200 shadow-sm focus:ring-2 focus:ring-blue-400 transition"
+      >
         <option value="" disabled hidden selected>
           Location
         </option>
@@ -37,7 +77,12 @@ function SearchBar() {
       </select>
 
       {/* Experience */}
-      <select className="w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md">
+      <select
+        onChange={handleChange}
+        name="experience"
+        value={jobCriteria.experience}
+        className="w-56 sm:w-64 py-3 pl-4 bg-zinc-100 font-semibold rounded-lg border border-blue-200 shadow-sm focus:ring-2 focus:ring-blue-400 transition"
+      >
         <option value="" disabled hidden selected>
           Experience
         </option>
@@ -47,9 +92,14 @@ function SearchBar() {
         <option value="Senior Level">Senior Level</option>
       </select>
 
-        <button className='w-64 bg-blue-500 hover:bg-blue-600 cursor-pointer text-white font-bold py-3 rounded-md'> Search</button>
+      <button
+        onClick={search}
+        className="w-56 sm:w-64 bg-gradient-to-r from-blue-500 to-blue-400 hover:from-blue-600 hover:to-blue-500 cursor-pointer text-white font-bold py-3 rounded-lg shadow-md transition-all duration-150"
+      >
+        Search
+      </button>
     </div>
-  )
+  );
 }
 
-export default SearchBar
+export default SearchBar;
